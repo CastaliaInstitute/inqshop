@@ -1,6 +1,6 @@
 # inqshop
 
-Public concept site for **Castalia iNQshop**: the physical making complement to iNQspace — garage-scale workshop layout, curriculum strands, safety and zones, blueprint packages, and alignment with the broader Castalia web map.
+Public site for **iNQshop — Garage Schooling**: curriculum strands from **PreK (age 2+)** through advanced work, including **engines & propulsion**, notebooks, outputs, and a growth pathway. **Physical build** (layout, zones, blueprints, phased construction) lives on the sibling site **[garage.castalia.institute](https://garage.castalia.institute)** (`InquiryInstitute/garage`).
 
 - **Live site:** https://inqshop.castalia.institute (GitHub Pages)
 - **Source brief:** `inqshop_design_document.pdf` (authoritative layout figures and extended notes)
@@ -10,7 +10,20 @@ Public concept site for **Castalia iNQshop**: the physical making complement to 
 | Path | Purpose |
 |------|---------|
 | `docs/` | Static site served by GitHub Pages (`/` path on `main`) |
-| `docs/CNAME` | Custom hostname for Pages |
+| `docs/CNAME` | `inqshop.castalia.institute` |
+| Partner | [InquiryInstitute/garage](https://github.com/InquiryInstitute/garage) → **garage.castalia.institute** (room build only) |
+| `docs/assets/*.png` | Hero + gallery images (generated; not committed until you run the script) |
+| `scripts/generate-inqshop-images.mjs` | Gemini image generation (“Nano Banana” / `gemini-2.5-flash-image`, same pattern as `Inquiry.Institute/supabase/functions/generate-busts`) |
+
+## Hero images (Google Gemini / Nano Banana)
+
+From the **inqshop** repo root, with a Google AI key in **`../Inquiry.Institute/.env`** or **`.env.local`** (`GCP_API_KEY`, `GEMINI_API_KEY`, or `GOOGLE_API_KEY`):
+
+```bash
+node scripts/generate-inqshop-images.mjs
+```
+
+That writes four PNGs into `docs/assets/` (`hero-makerspace.png`, three gallery shots). Commit them if you want them served from GitHub Pages. Optional: set `GEMINI_IMAGE_MODEL` to a comma-separated list of model ids to match your AI Studio access.
 
 ## Deploy
 
