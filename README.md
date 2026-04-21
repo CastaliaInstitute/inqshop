@@ -15,3 +15,7 @@ Public concept site for **Castalia iNQshop**: the physical making complement to 
 ## Deploy
 
 Pages is configured for branch `main`, folder `/docs`. Push to `main` to publish.
+
+## DNS (Cloudflare)
+
+The `castalia.institute` zone uses the Cloudflare API token from the main Castalia repo (sourced from `../Inquiry.Institute/.env` or `.env.local` — see that repo’s `.env.local.example`). CNAME: `inqshop` → `inquiryinstitute.github.io` (proxied).
