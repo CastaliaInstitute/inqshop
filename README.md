@@ -17,7 +17,7 @@ Public site for **iNQshop — Garage Schooling**: curriculum strands from **PreK
 
 ## Hero images (Google Gemini / Nano Banana)
 
-From the **inqshop** repo root, with a Google AI key in **`../Inquiry.Institute/.env`** or **`.env.local`** (`GCP_API_KEY`, `GEMINI_API_KEY`, or `GOOGLE_API_KEY`):
+From the **inqshop** repo root. The script loads **`../Inquiry.Institute`** env files in merge order (later overrides earlier; your shell still wins): **`.env`**, **`.env.local`**, **`.env.development.local`**, **`gcp/faculty-runner/.env`**, **`gcp/faculty-runner/.env.local`**. Uses **`GCP_API_KEY`**, **`GEMINI_API_KEY`**, or **`GOOGLE_API_KEY`** (same as `generate-busts`):
 
 ```bash
 node scripts/generate-inqshop-images.mjs

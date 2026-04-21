@@ -3,9 +3,12 @@
  * Generate iNQshop hero/gallery images via Google Gemini image generation
  * ("Nano Banana" — same stack as Inquiry.Institute supabase/functions/generate-busts).
  *
- * Loads API key from (first hit):
- *   GEMINI_API_KEY / GCP_API_KEY / GOOGLE_API_KEY in process.env, or
- *   ../Inquiry.Institute/.env and ../Inquiry.Institute/.env.local
+ * Loads API key from (first hit in process.env):
+ *   GCP_API_KEY, GEMINI_API_KEY, GOOGLE_API_KEY (same as generate-busts).
+ * Then merges (later overrides earlier; does not override already-set shell env):
+ *   ../Inquiry.Institute/.env, .env.local, .env.development.local,
+ *   ../Inquiry.Institute/gcp/faculty-runner/.env and .env.local
+ *   (also ../inquiry.institute/… if that folder exists)
  *
  * Usage (from repo root):
  *   node scripts/generate-inqshop-images.mjs
@@ -21,15 +24,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.join(__dirname, '..')
 const OUT_DIR = path.join(ROOT, 'docs', 'assets')
 
-function loadEnvFile(filePath) {
-  if (!fs.existsSync(filePath)) return
+/** Parse KEY=value lines into an object (later files can override via Object.assign). */
+function parseEnvFileToObject(filePath) {
+  const out = {}
+  if (!fs.existsSync(filePath)) return out
   const text = fs.readFileSync(filePath, 'utf8')
   for (let line of text.split('\n')) {
     line = line.trim()
     if (!line || line.startsWith('#')) continue
     const eq = line.indexOf('=')
     if (eq <= 0) continue
-    const key = line.slice(0, eq).trim()
+    let key = line.slice(0, eq).trim()
+    if (key.startsWith('export ')) key = key.slice(7).trim()
+    if (!key) continue
     let val = line.slice(eq + 1).trim()
     if (
       (val.startsWith('"') && val.endsWith('"')) ||
@@ -37,8 +44,19 @@ function loadEnvFile(filePath) {
     ) {
       val = val.slice(1, -1)
     }
-    if (process.env[key] === undefined) process.env[key] = val
+    out[key] = val
   }
+  return out
+}
+
+function inquiryInstituteEnvPaths(iiRoot) {
+  return [
+    path.join(iiRoot, '.env'),
+    path.join(iiRoot, '.env.local'),
+    path.join(iiRoot, '.env.development.local'),
+    path.join(iiRoot, 'gcp', 'faculty-runner', '.env'),
+    path.join(iiRoot, 'gcp', 'faculty-runner', '.env.local'),
+  ]
 }
 
 function googleApiKey() {
@@ -85,7 +103,7 @@ async function generateImageGemini(prompt) {
   const key = googleApiKey()
   if (!key) {
     throw new Error(
-      'Set GCP_API_KEY, GEMINI_API_KEY, or GOOGLE_API_KEY (e.g. in ../Inquiry.Institute/.env)',
+      'Set GCP_API_KEY, GEMINI_API_KEY, or GOOGLE_API_KEY in the shell or in ../Inquiry.Institute/.env.local (overrides .env). Same keys as supabase/functions/generate-busts.',
     )
   }
 
@@ -153,9 +171,15 @@ function loadInquiryInstituteEnv() {
     path.join(ROOT, '..', 'Inquiry.Institute'),
     path.join(ROOT, '..', 'inquiry.institute'),
   ]
+  const merged = {}
   for (const ii of dirs) {
-    loadEnvFile(path.join(ii, '.env'))
-    loadEnvFile(path.join(ii, '.env.local'))
+    if (!fs.existsSync(ii) || !fs.statSync(ii).isDirectory()) continue
+    for (const f of inquiryInstituteEnvPaths(ii)) {
+      Object.assign(merged, parseEnvFileToObject(f))
+    }
+  }
+  for (const [key, val] of Object.entries(merged)) {
+    if (process.env[key] === undefined) process.env[key] = val
   }
 }
 
