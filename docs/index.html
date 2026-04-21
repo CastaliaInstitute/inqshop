@@ -8,6 +8,8 @@
   <meta property="og:title" content="iNQshop — Garage Schooling" />
   <meta property="og:description" content="Curriculum for a real workshop: strands, PreK, engines, outputs, and how learning scales in the same room." />
   <meta property="og:image" content="https://inqshop.castalia.institute/assets/hero-makerspace.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://inqshop.castalia.institute/assets/hero-makerspace.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&amp;family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&amp;display=swap" rel="stylesheet" />
@@ -29,6 +31,7 @@
           <li><a href="#curriculum">Strands</a></li>
           <li><a href="#prek">PreK (2+)</a></li>
           <li><a href="#capabilities">Engines &amp; capabilities</a></li>
+          <li><a href="#gallery">Gallery</a></li>
           <li><a href="https://garage.castalia.institute" target="_blank" rel="noopener">The room build →</a></li>
         </ul>
       </nav>
@@ -93,7 +96,7 @@
       </div>
     </header>
 
-    <section class="visual-strip" aria-label="Garage Schooling in motion">
+    <section id="gallery" class="visual-strip" aria-label="Garage Schooling in motion">
       <div class="visual-strip-inner">
         <figure class="viz-card">
           <div class="viz-frame">
@@ -133,6 +136,19 @@
         <li><strong>Siblings together.</strong> Wonder-stage beside Seed-stage: same room culture, different duties.</li>
         <li><strong>Dads and hands-on parents.</strong> A garage curriculum is a concrete way to lead formation—not only logistics.</li>
       </ul>
+      <figure class="content-figure content-figure--wide">
+        <div class="content-figure-frame">
+          <img
+            src="assets/gallery-family-bench.png"
+            width="1200"
+            height="900"
+            alt="Parent and children working together at a garage workbench."
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <figcaption>Formation happens shoulder-to-shoulder—not only across a homework table.</figcaption>
+      </figure>
     </section>
 
     <section id="garage-schooling">
@@ -149,6 +165,34 @@
         <li><strong>Cleanup is closure</strong> — reset the shop so courage returns next time.</li>
         <li><strong>Explain the failure</strong> — especially when smoke was optional.</li>
       </ul>
+      <div class="content-figure-pair" role="group" aria-label="Workshop moments">
+        <figure class="content-figure">
+          <div class="content-figure-frame">
+            <img
+              src="assets/gallery-toddler-paint.png"
+              width="900"
+              height="1200"
+              alt="Young child painting at a workshop table with washable media."
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption>Wonder-stage work: short cycles, real media, cleanup as pride.</figcaption>
+        </figure>
+        <figure class="content-figure">
+          <div class="content-figure-frame">
+            <img
+              src="assets/gallery-teen-fab.png"
+              width="1200"
+              height="900"
+              alt="Teen working at fabrication and electronics on a garage bench."
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption>Studio-stage work: machines, notebooks, and the habit of measured risk.</figcaption>
+        </figure>
+      </div>
     </section>
 
     <section id="curriculum">
@@ -253,6 +297,19 @@
         Wet and messy stay on the “soft” side of the room; <strong>running engines and sharp perimeter tools</strong> stay off or behind a hard rule you never improvise.
         For <strong>where</strong> those zones go in the floor plan, see the <a href="https://garage.castalia.institute" target="_blank" rel="noopener">Garage layout guide</a>.
       </p>
+      <figure class="content-figure content-figure--right">
+        <div class="content-figure-frame">
+          <img
+            src="assets/gallery-toddler-paint.png"
+            width="900"
+            height="1200"
+            alt="Preschooler using chunky brushes and washable paint at a workshop table."
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <figcaption>PreK belongs in the shop when wet work stays in the soft zone and tools are invitation-sized.</figcaption>
+      </figure>
       <div class="callout">
         <p><strong>Starter rhythm (~15–20 min)</strong></p>
         <ol class="goals">
@@ -278,6 +335,19 @@
         Garage Schooling is honest about <strong>power</strong>. By mid-Builder many students can participate in supervised small-engine maintenance; by Studio they should meet written shop rules the way they meet algebra axioms.
         The <a href="https://garage.castalia.institute#zones" target="_blank" rel="noopener">physical zones page</a> suggests how to separate toddler paint from a teardown bay—here we list <strong>intellectual and manual capabilities</strong> the strands develop.
       </p>
+      <figure class="content-figure content-figure--wide">
+        <div class="content-figure-frame">
+          <img
+            src="assets/gallery-teen-fab.png"
+            width="1200"
+            height="900"
+            alt="Teen at a fabrication bench with organized tools and equipment."
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <figcaption>Older learners earn the fabrication edge—notebooks still open beside the machine.</figcaption>
+      </figure>
       <table>
         <thead>
           <tr>
@@ -337,10 +407,10 @@
     </div>
   </footer>
   <script>
-    document.querySelectorAll('.hero-photo, .visual-strip img').forEach(function (img) {
+    document.querySelectorAll('.hero-photo, .visual-strip img, .content-figure img').forEach(function (img) {
       img.addEventListener('error', function () {
         img.style.display = 'none'
-        var wrap = img.closest('.hero-frame, .viz-frame')
+        var wrap = img.closest('.hero-frame, .viz-frame, .content-figure-frame')
         if (wrap) wrap.classList.add('photo-missing')
       })
     })
