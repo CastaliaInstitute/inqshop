@@ -383,6 +383,12 @@ main {
   margin-bottom: 0.65rem;
 }
 
+.band-hint {
+  font-size: 0.88em;
+  font-weight: 400;
+  color: var(--muted);
+}
+
 .content-figure {
   margin: 1.75rem 0 0;
 }
