@@ -8,7 +8,7 @@
  * Then merges (later overrides earlier; does not override already-set shell env):
  *   ../Inquiry.Institute/.env, .env.local, .env.development.local,
  *   ../Inquiry.Institute/gcp/faculty-runner/.env and .env.local
- *   (also ../inquiry.institute/… if that folder exists)
+ *   (also ../castalia.institute/… if that folder exists)
  *
  * Usage (from repo root):
  *   node scripts/generate-inqshop-images.mjs
@@ -169,7 +169,7 @@ const JOBS = [
 function loadInquiryInstituteEnv() {
   const dirs = [
     path.join(ROOT, '..', 'Inquiry.Institute'),
-    path.join(ROOT, '..', 'inquiry.institute'),
+    path.join(ROOT, '..', 'castalia.institute'),
   ]
   const merged = {}
   for (const ii of dirs) {
